@@ -11,3 +11,6 @@ venv/
 .run/
 .DS_Store
 Thumbs.db
+
+# Superseded detailed report can remain open locally in the PDF preview.
+docs/GeoInspect_Design_Report.pdf
