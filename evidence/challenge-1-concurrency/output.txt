@@ -1,0 +1,240 @@
+{
+  "timestamp_utc": "2026-10-13T02:42:24.160951+00:00",
+  "claim": "20 concurrent requests for capacity 1 produce exactly 1 success",
+  "successes": 1,
+  "conflicts": 19,
+  "final_reservations": [
+    {
+      "id": "40f5ed97-b778-4711-a136-768e77df5183",
+      "inspector_id": "e36c000d-634d-49f5-a728-6e827bc54ca2",
+      "assignment_id": "942b3373-b560-449e-b90a-2f73a96d2437",
+      "slot": "2026-10-21T02:42:22.541776+00:00",
+      "state": "RESERVED",
+      "created_at": "2026-10-13T02:42:23.670018+00:00"
+    }
+  ],
+  "responses": [
+    {
+      "status_code": 409,
+      "body": {
+        "error": {
+          "code": "SLOT_UNAVAILABLE",
+          "message": "Inspector is already reserved for this slot",
+          "details": {}
+        },
+        "correlation_id": "99de9f8f-ad1e-45c3-93d6-d8cc495b44d5"
+      }
+    },
+    {
+      "status_code": 409,
+      "body": {
+        "error": {
+          "code": "SLOT_UNAVAILABLE",
+          "message": "Inspector is already reserved for this slot",
+          "details": {}
+        },
+        "correlation_id": "5ffd5841-f738-4345-8d77-10dea815680f"
+      }
+    },
+    {
+      "status_code": 409,
+      "body": {
+        "error": {
+          "code": "SLOT_UNAVAILABLE",
+          "message": "Inspector is already reserved for this slot",
+          "details": {}
+        },
+        "correlation_id": "a384bd16-2444-40da-ac07-09df46db6715"
+      }
+    },
+    {
+      "status_code": 409,
+      "body": {
+        "error": {
+          "code": "SLOT_UNAVAILABLE",
+          "message": "Inspector is already reserved for this slot",
+          "details": {}
+        },
+        "correlation_id": "d7a1ed13-6828-4531-8fcd-00dc7e5bc59f"
+      }
+    },
+    {
+      "status_code": 409,
+      "body": {
+        "error": {
+          "code": "SLOT_UNAVAILABLE",
+          "message": "Inspector is already reserved for this slot",
+          "details": {}
+        },
+        "correlation_id": "86ccafda-cef1-4fb6-8c71-a5d3a6cee944"
+      }
+    },
+    {
+      "status_code": 409,
+      "body": {
+        "error": {
+          "code": "SLOT_UNAVAILABLE",
+          "message": "Inspector is already reserved for this slot",
+          "details": {}
+        },
+        "correlation_id": "717333c5-9473-4965-a5f5-2516bdafce41"
+      }
+    },
+    {
+      "status_code": 409,
+      "body": {
+        "error": {
+          "code": "SLOT_UNAVAILABLE",
+          "message": "Inspector is already reserved for this slot",
+          "details": {}
+        },
+        "correlation_id": "986d8998-dd2e-4a28-bf34-15c141ef4a9c"
+      }
+    },
+    {
+      "status_code": 409,
+      "body": {
+        "error": {
+          "code": "SLOT_UNAVAILABLE",
+          "message": "Inspector is already reserved for this slot",
+          "details": {}
+        },
+        "correlation_id": "c67be123-4957-4f59-9283-2e532726840d"
+      }
+    },
+    {
+      "status_code": 409,
+      "body": {
+        "error": {
+          "code": "SLOT_UNAVAILABLE",
+          "message": "Inspector is already reserved for this slot",
+          "details": {}
+        },
+        "correlation_id": "087c8946-1544-4f07-98a6-0b0eb7b4aec3"
+      }
+    },
+    {
+      "status_code": 409,
+      "body": {
+        "error": {
+          "code": "SLOT_UNAVAILABLE",
+          "message": "Inspector is already reserved for this slot",
+          "details": {}
+        },
+        "correlation_id": "42187836-946c-4939-8760-3dd3dd8d31be"
+      }
+    },
+    {
+      "status_code": 409,
+      "body": {
+        "error": {
+          "code": "SLOT_UNAVAILABLE",
+          "message": "Inspector is already reserved for this slot",
+          "details": {}
+        },
+        "correlation_id": "c030a114-2b85-42c8-ae1e-4fc1073396be"
+      }
+    },
+    {
+      "status_code": 409,
+      "body": {
+        "error": {
+          "code": "SLOT_UNAVAILABLE",
+          "message": "Inspector is already reserved for this slot",
+          "details": {}
+        },
+        "correlation_id": "986e67c4-54d7-492b-bcb7-31c6553933c0"
+      }
+    },
+    {
+      "status_code": 409,
+      "body": {
+        "error": {
+          "code": "SLOT_UNAVAILABLE",
+          "message": "Inspector is already reserved for this slot",
+          "details": {}
+        },
+        "correlation_id": "75750a58-d833-4ca6-b5bd-9206d80d65bb"
+      }
+    },
+    {
+      "status_code": 409,
+      "body": {
+        "error": {
+          "code": "SLOT_UNAVAILABLE",
+          "message": "Inspector is already reserved for this slot",
+          "details": {}
+        },
+        "correlation_id": "18455767-e1b5-41c3-b32d-22e1e5956212"
+      }
+    },
+    {
+      "status_code": 201,
+      "body": {
+        "id": "942b3373-b560-449e-b90a-2f73a96d2437",
+        "work_order_id": "bf6d450e-c5ad-4a90-b015-fdd43f21030e",
+        "inspector_id": "e36c000d-634d-49f5-a728-6e827bc54ca2",
+        "status": "CONFIRMED",
+        "stage": "CONFIRMED",
+        "reservation_id": "40f5ed97-b778-4711-a136-768e77df5183",
+        "notification_status": "SENT",
+        "created_at": "2026-10-13 02:42:23.382851+00:00"
+      }
+    },
+    {
+      "status_code": 409,
+      "body": {
+        "error": {
+          "code": "SLOT_UNAVAILABLE",
+          "message": "Inspector is already reserved for this slot",
+          "details": {}
+        },
+        "correlation_id": "99cd91c4-8c13-4a4d-84a6-6f9bb0f91c62"
+      }
+    },
+    {
+      "status_code": 409,
+      "body": {
+        "error": {
+          "code": "SLOT_UNAVAILABLE",
+          "message": "Inspector is already reserved for this slot",
+          "details": {}
+        },
+        "correlation_id": "d58ed523-0645-4b91-9317-8ee51e73b35c"
+      }
+    },
+    {
+      "status_code": 409,
+      "body": {
+        "error": {
+          "code": "SLOT_UNAVAILABLE",
+          "message": "Inspector is already reserved for this slot",
+          "details": {}
+        },
+        "correlation_id": "f2907c28-84fb-4e8a-8311-fea5149966a8"
+      }
+    },
+    {
+      "status_code": 409,
+      "body": {
+        "error": {
+          "code": "SLOT_UNAVAILABLE",
+          "message": "Inspector is already reserved for this slot",
+          "details": {}
+        },
+        "correlation_id": "5e2552b0-944b-4d42-a045-b50a30a3da11"
+      }
+    },
+    {
+      "status_code": 409,
+      "body": {
+        "error": {
+          "code": "SLOT_UNAVAILABLE",
+          "message": "Inspector is already reserved for this slot",
+          "details": {}
+        },
+        "correlation_id": "b5a37e78-db28-4b5f-a938-bc1e176ed494"
+      }
+    }
+  ]
+}

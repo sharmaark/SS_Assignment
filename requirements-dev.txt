@@ -1,0 +1,5 @@
+-r services/work_order/requirements.txt
+-r services/workforce/requirements.txt
+-r services/dispatch/requirements.txt
+-r services/notification/requirements.txt
+pytest==8.3.5
