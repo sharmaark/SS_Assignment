@@ -20,17 +20,17 @@ import report_components as c
 
 DOCS = c.DOCS
 DIAGRAMS = DOCS / "diagrams"
-REPORT = DOCS / "GeoInspect_Concise_Report.pdf"
+REPORT = DOCS / "GeoInspect_Technical_Design.pdf"
 
 
 def build_short_report() -> None:
     story = []
 
-    # Page 1 - cover and evaluator map
+    # Page 1 - document overview
     story += [
         Spacer(1, 13 * mm),
         c.p("GeoInspect", c.TITLE),
-        c.p("Concise design and technical report", c.SUBTITLE),
+        c.p("Architecture and Technical Design", c.SUBTITLE),
         c.band(
             "GIS-enabled field inspection assignment with four independently runnable services, "
             "database-per-service, concurrency control, idempotency, and resilient notifications."
@@ -38,9 +38,9 @@ def build_short_report() -> None:
         Spacer(1, 5 * mm),
         c.tbl(
             [
-                ["Course", "Scalable Services (SEZG583)"],
+                ["System", "GIS-enabled field inspection platform"],
                 ["Repository", "https://github.com/sharmaark/SS_Assignment"],
-                ["Team", "[Add student names and IDs]"],
+                ["Document", "Technical design and implementation reference"],
                 ["Prepared", date.today().isoformat()],
             ],
             [36 * mm, 138 * mm],
@@ -48,11 +48,22 @@ def build_short_report() -> None:
             font_size=8,
         ),
         Spacer(1, 6 * mm),
-        c.p("Submission package", c.H2),
+        c.p("Executive overview", c.H2),
+        c.p("GeoInspect coordinates the assignment of field inspections to eligible inspectors. Its design protects scarce inspector availability, preserves one outcome for repeated requests, and makes notification failures visible without invalidating confirmed work. The system uses REST APIs and independently owned PostgreSQL and MongoDB databases.", c.BODY),
+        c.p("Document guide", c.H2),
+        c.tbl([
+            ["Section", "Page"],
+            ["1. Domain, scope and service boundaries", "2"],
+            ["2. Architecture and communication", "3"],
+            ["3. Data ownership and API contracts", "4"],
+            ["4. Concurrency and request idempotency", "5"],
+            ["5. Resilience and verification", "6"],
+            ["6. Design decisions and operational limits", "7"],
+        ], [147 * mm, 27 * mm], font_size=8),
+        c.p("Supporting technical references", c.H2),
         c.tbl(
             [
                 ["File", "Purpose"],
-                ["GeoInspect_Concise_Report.pdf", "Seven-page report focused on assessed decisions and evidence"],
                 ["diagrams/01_System_Architecture.pdf + .drawio", "Service boundaries, databases, protocols, and ownership"],
                 ["diagrams/02_Main_Assignment_Sequence.pdf + .drawio", "Happy-path transaction across services"],
                 ["diagrams/03_Notification_Failure_Sequence.pdf + .drawio", "Timeout, retry, graceful failure, and recovery"],
@@ -62,25 +73,12 @@ def build_short_report() -> None:
             [76 * mm, 98 * mm],
             font_size=7.2,
         ),
-        c.p("Rubric map", c.H2),
-        c.tbl(
-            [
-                ["Criterion", "Marks", "Where to verify"],
-                ["Problem and decomposition", "2", "Pages 2-3"],
-                ["Architecture and API design", "2", "Pages 3-4 and split diagrams"],
-                ["Implementation quality", "3", "Pages 2, 4, and 6"],
-                ["Engineering challenges", "3", "Pages 5-6 and evidence folders"],
-                ["Report, video and evidence", "3", "Pages 6-7"],
-            ],
-            [70 * mm, 16 * mm, 88 * mm],
-            font_size=7.2,
-        ),
         PageBreak(),
     ]
 
     # Page 2 - problem, rules, services
     story += [
-        c.p("1. Problem, scope and business rules", c.H1),
+        c.p("1. Domain, scope and service boundaries", c.H1),
         c.p(
             "Field coordinators assign geographically distributed inspections to inspectors. "
             "The same inspector and slot can be requested concurrently; retries can create duplicate assignments; "
@@ -105,7 +103,7 @@ def build_short_report() -> None:
             [14 * mm, 94 * mm, 66 * mm],
             font_size=7.0,
         ),
-        c.p("2. Service decomposition", c.H2),
+        c.p("Service responsibilities", c.H2),
         c.tbl(
             [
                 ["Service", "One responsibility", "Owned database"],
@@ -127,16 +125,16 @@ def build_short_report() -> None:
 
     # Page 3 - architecture
     story += [
-        c.p("3. Architecture", c.H1),
+        c.p("2. Architecture and communication", c.H1),
         c.p(
             "Dispatch is the workflow orchestrator. It claims the work order, asks Workforce to reserve the inspector and slot, "
             "confirms the work order, and then requests notification. X-Correlation-ID is propagated through every HTTP call.",
             c.BODY,
         ),
-        c.component_diagram(),
+        system_architecture_drawing_scaled(),
         c.p("Why this communication design", c.H2),
         c.p(
-            "REST provides immediate eligibility and contention feedback and directly satisfies the assignment constraint. "
+            "REST provides immediate eligibility and contention feedback. "
             "The client makes one request to Dispatch, while Dispatch calls each capability service directly; there is no long A-to-B-to-C-to-D service chain. "
             "Local database constraints protect strong invariants, while persisted workflow state makes partial failure visible.",
             c.BODY,
@@ -152,7 +150,7 @@ def build_short_report() -> None:
 
     # Page 4 - data and APIs
     story += [
-        c.p("4. Data design and API design", c.H1),
+        c.p("3. Data ownership and API contracts", c.H1),
         c.p("Data ownership", c.H2),
         c.tbl(
             [
@@ -197,8 +195,8 @@ def build_short_report() -> None:
 
     # Page 5 - concurrency and idempotency
     story += [
-        c.p("5. Engineering challenges 1 and 2", c.H1),
-        c.p("Challenge 1 - concurrency control", c.H2),
+        c.p("4. Concurrency and request idempotency", c.H1),
+        c.p("Concurrency control", c.H2),
         c.band(
             "Recorded result: 20 parallel assignment requests compete for capacity N=1. Exactly 1 succeeds, 19 return HTTP 409, and PostgreSQL contains one reservation."
         ),
@@ -216,7 +214,7 @@ def build_short_report() -> None:
             [78 * mm, 96 * mm],
             font_size=7.2,
         ),
-        c.p("Challenge 2 - idempotency", c.H2),
+        c.p("Request idempotency", c.H2),
         c.band(
             "Recorded result: two simultaneous identical calls and a sequential replay return HTTP 201 with the same assignment ID; changed payload with the same key returns HTTP 409."
         ),
@@ -239,8 +237,8 @@ def build_short_report() -> None:
 
     # Page 6 - resilience and tests
     story += [
-        c.p("6. Challenge 3A, testing and evidence", c.H1),
-        c.p("Challenge 3A - resilience", c.H2),
+        c.p("5. Resilience and verification", c.H1),
+        c.p("Notification resilience", c.H2),
         c.p(
             "Dispatch uses a configured timeout, three total attempts, exponential backoff, and jitter. A failed provider leaves a valid assignment CONFIRMED with notification PENDING. "
             "After recovery, POST /api/v1/assignments/{id}/retry-notification changes it to SENT. In commit-then-slow mode, the provider commits before the HTTP response is lost; "
@@ -252,7 +250,7 @@ def build_short_report() -> None:
                 ["Forced condition", "Observed state", "Evidence"],
                 ["Provider fails", "Assignment CONFIRMED; notification PENDING", "challenge-3a-resilience/output.txt"],
                 ["Provider recovers", "Manual retry returns notification SENT", "same output"],
-                ["Commit then response timeout", "Assignment SENT; exactly one notification record", "same output"],
+                ["Commit then response timeout", "Notification SENT; exactly one notification record", "same output"],
             ],
             [45 * mm, 76 * mm, 53 * mm],
             font_size=7.2,
@@ -272,7 +270,7 @@ def build_short_report() -> None:
         ),
         c.p(
             "Raw outputs are stored under evidence/challenge-1-concurrency, evidence/challenge-2-idempotency, evidence/challenge-3a-resilience, and evidence/tests. "
-            "Before submission, rerun all scripts on the final commit and add timestamped terminal screenshots while preserving the raw text files.",
+            "These files capture the observed behavior of the recorded test runs. Repeat the scripts after changes to transaction or persistence logic and preserve the raw outputs alongside their timestamps.",
             c.BODY,
         ),
         PageBreak(),
@@ -280,7 +278,7 @@ def build_short_report() -> None:
 
     # Page 7 - decisions and final fields
     story += [
-        c.p("7. Decisions, limitations and submission fields", c.H1),
+        c.p("6. Design decisions and operational limits", c.H1),
         c.p("Key decisions and trade-offs", c.H2),
         c.tbl(
             [
@@ -298,31 +296,25 @@ def build_short_report() -> None:
         c.bullet("Add automatic outbox workers and idempotency-record retention for production."),
         c.bullet("Add GeoJSON/2dsphere or PostGIS only when proximity search and routing enter scope."),
         c.bullet("Add service authentication, role-based access, malware scanning, and object storage before real deployment."),
-        c.p("Submission fields", c.H2),
-        c.tbl(
-            [
-                ["Item", "Complete before upload"],
-                ["Repository", "https://github.com/sharmaark/SS_Assignment"],
-                ["Google Drive / video", "[Insert final shareable link]"],
-                ["Contribution table", "[Add one row per student with commit/service/challenge evidence]"],
-                ["Individual reflections", "[Append one half-page reflection per student]"],
-            ],
-            [52 * mm, 122 * mm],
-            font_size=7.2,
-        ),
-        c.p("AI-use declaration", c.H2),
+        c.p("Recovery boundaries", c.H2),
+        c.p("Notification recovery is explicit and initiated through the retry API. The current implementation has no background workflow reconciler. An interrupted core transaction can leave an assignment PENDING; a duplicate request waits for a stored outcome and may return HTTP 202. Automatic takeover and full crash recovery are future work.", c.BODY),
+        c.p("Engineering tooling", c.H2),
         c.p(
-            "AI tools assisted with planning, boilerplate, documentation structure, test-script drafting, and review. The team validated the outputs, ran the code, "
-            "corrected generated material, and remains responsible for explaining every submitted component.",
+            "OpenAI Codex assisted with planning, implementation scaffolding, test scripts, documentation, and review. Recorded verification results are linked in this document; generated material remains subject to engineering review.",
             c.BODY,
-        ),
-        c.band(
-            "Final check: complete all bracketed fields, rerun evidence on the final commit, verify faculty access, and keep the live demo within 8-10 minutes.",
-            color=c.GOLD,
         ),
     ]
 
     c.ReportDoc(str(REPORT)).build(story)
+
+
+def system_architecture_drawing_scaled() -> Drawing:
+    drawing = system_architecture_drawing()
+    factor = 490 / drawing.width
+    drawing.scale(factor, factor)
+    drawing.width *= factor
+    drawing.height *= factor
+    return drawing
 
 
 def data_ownership_drawing() -> Drawing:
