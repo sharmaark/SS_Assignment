@@ -47,6 +47,20 @@ Invoke-RestMethod http://localhost:8004/health
 
 Keep that terminal open. Swagger UI is available at `http://localhost:<port>/docs`; the terminal receives structured JSON logs with propagated correlation IDs. Press Ctrl+C to stop all four services, then use `docker compose down` to stop databases. Windows users may alternatively use `scripts/start_services.ps1` and `scripts/stop_services.ps1` for background processes and `.run/` log files.
 
+If ports 8001–8004 are already occupied, set a complete override before `run_all.py` and before running the client scripts:
+
+```powershell
+$env:WORK_ORDER_PORT="8101"
+$env:WORKFORCE_PORT="8102"
+$env:DISPATCH_PORT="8103"
+$env:NOTIFICATION_PORT="8104"
+$env:WORK_ORDER_URL="http://127.0.0.1:8101"
+$env:WORKFORCE_URL="http://127.0.0.1:8102"
+$env:DISPATCH_URL="http://127.0.0.1:8103"
+$env:NOTIFICATION_URL="http://127.0.0.1:8104"
+python scripts\run_all.py
+```
+
 The initialization scripts run only for a new Docker volume. To deliberately erase all local assignment data and recreate credentials, stop services and run `docker compose down -v`, followed by `docker compose up -d`.
 
 ## Configuration
