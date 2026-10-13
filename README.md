@@ -18,7 +18,7 @@ PostgreSQL is exposed on host port `55432` to avoid common conflicts with an exi
 
 ## Prerequisites
 
-- Python 3.11 or 3.12
+- Python 3.11 through 3.14
 - Docker Desktop with Docker Compose
 - PowerShell 7 on Windows for the helper start/stop scripts
 
