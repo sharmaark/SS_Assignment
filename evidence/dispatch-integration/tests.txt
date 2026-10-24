@@ -1,0 +1,13 @@
+.......................................                                  [100%]
+============================== warnings summary ===============================
+.venv\Lib\site-packages\starlette\testclient.py:37
+  D:\Rishi\BITS_PILANI\3rd_Sem\Scalable Services\Assignment\SS_Assignment\.venv\Lib\site-packages\starlette\testclient.py:37: DeprecationWarning: The anyio.abc.BlockingPortal alias is deprecated, use anyio.from_thread.BlockingPortal instead.
+    _PortalFactoryType = typing.Callable[[], typing.ContextManager[anyio.abc.BlockingPortal]]
+
+.venv\Lib\site-packages\fastapi\routing.py:233: 22 warnings
+  D:\Rishi\BITS_PILANI\3rd_Sem\Scalable Services\Assignment\SS_Assignment\.venv\Lib\site-packages\fastapi\routing.py:233: DeprecationWarning: 'asyncio.iscoroutinefunction' is deprecated and slated for removal in Python 3.16; use inspect.iscoroutinefunction() instead
+    is_coroutine = asyncio.iscoroutinefunction(dependant.call)
+
+-- Docs: https://docs.pytest.org/en/stable/how-to/capture-warnings.html
+- generated xml file: D:\Rishi\BITS_PILANI\3rd_Sem\Scalable Services\Assignment\SS_Assignment\evidence\dispatch-integration\results.xml -
+39 passed, 23 warnings in 11.56s

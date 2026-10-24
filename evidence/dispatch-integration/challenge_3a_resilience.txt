@@ -1,0 +1,42 @@
+{
+  "timestamp_utc": "2026-10-24T03:45:52.812573+00:00",
+  "claim": "bounded retries degrade gracefully and response-loss retries do not duplicate delivery",
+  "provider_failure_assignment": {
+    "id": "6133df15-2d5f-474e-95de-a5badfac82d7",
+    "work_order_id": "5d35c2b3-6aef-4042-9929-b3734ea0ea83",
+    "inspector_id": "8f7765bd-cd71-4ef9-8fee-28098c807acc",
+    "status": "CONFIRMED",
+    "stage": "CONFIRMED",
+    "reservation_id": "aaa0ecd8-499f-45c5-9b24-4b399f98e49b",
+    "notification_status": "PENDING",
+    "created_at": "2026-10-24 03:45:39.084968+00:00"
+  },
+  "manual_recovery": {
+    "assignment_id": "6133df15-2d5f-474e-95de-a5badfac82d7",
+    "notification_status": "SENT"
+  },
+  "response_loss_assignment": {
+    "id": "d4dba3cc-5643-482e-a66b-dd69a4e3fb04",
+    "work_order_id": "77b085a5-f9ed-418d-bd50-d38d0f8394d7",
+    "inspector_id": "8f7765bd-cd71-4ef9-8fee-28098c807acc",
+    "status": "CONFIRMED",
+    "stage": "CONFIRMED",
+    "reservation_id": "f25dc650-4fa5-4fc7-9dd4-236461a64a7a",
+    "notification_status": "SENT",
+    "created_at": "2026-10-24 03:45:46.817009+00:00"
+  },
+  "response_loss_notification_records": [
+    {
+      "delivery_key": "assignment:d4dba3cc-5643-482e-a66b-dd69a4e3fb04",
+      "assignment_id": "d4dba3cc-5643-482e-a66b-dd69a4e3fb04",
+      "work_order_id": "77b085a5-f9ed-418d-bd50-d38d0f8394d7",
+      "message": "Inspection 77b085a5-f9ed-418d-bd50-d38d0f8394d7 assigned",
+      "status": "SENT",
+      "owner_token": null,
+      "attempts": 1,
+      "created_at": "2026-10-24T03:45:49.806000",
+      "sent_at": "2026-10-24T03:45:49.809000",
+      "id": "d22429c4-fc2f-4269-8db4-536501ef70ff"
+    }
+  ]
+}

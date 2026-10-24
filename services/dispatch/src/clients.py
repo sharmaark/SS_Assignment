@@ -30,12 +30,15 @@ class ServiceClients:
                 headers={"X-Correlation-ID": correlation_id},
                 timeout=self.timeout,
             )
-        except (httpx.TimeoutException, httpx.ConnectError) as exc:
+        except httpx.TransportError as exc:
             raise DownstreamTimeout(service) from exc
         try:
             body = response.json()
         except ValueError:
             body = {"error": {"code": "INVALID_DOWNSTREAM_RESPONSE", "message": response.text, "details": {}}}
+            raise DownstreamError(service, 502, body)
+        if not isinstance(body, dict):
+            raise DownstreamError(service, 502, {"error": {"code": "INVALID_DOWNSTREAM_RESPONSE", "message": "Expected a JSON object", "details": {}}})
         if response.status_code >= 400:
             raise DownstreamError(service, response.status_code, body)
         return body

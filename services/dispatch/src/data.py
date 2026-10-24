@@ -1,9 +1,12 @@
+from contextlib import contextmanager
 from datetime import datetime, timezone
+import hashlib
 from uuid import uuid4
 
-from sqlalchemy import JSON, DateTime, Integer, String, create_engine, select
+from sqlalchemy import JSON, DateTime, Integer, String, create_engine, select, text
 from sqlalchemy.exc import IntegrityError
 from sqlalchemy.orm import DeclarativeBase, Mapped, Session, mapped_column
+from sqlalchemy.pool import NullPool
 
 from .business import ensure_matching_fingerprint
 
@@ -50,6 +53,8 @@ def assignment_dict(item: Assignment) -> dict:
 class DispatchRepository:
     def __init__(self, database_url: str):
         self.engine = create_engine(database_url, pool_pre_ping=True)
+        # Lock holders must not exhaust the pool used to persist checkpoints.
+        self.lock_engine = create_engine(database_url, poolclass=NullPool)
 
     def initialise(self) -> None:
         Base.metadata.create_all(self.engine)
@@ -57,6 +62,20 @@ class DispatchRepository:
     def health(self) -> None:
         with Session(self.engine) as session:
             session.execute(select(1))
+
+    @contextmanager
+    def execution_lock(self, key: str):
+        """One orchestrator per key, across workers; released on rollback or disconnect.
+
+        Keep this transaction separate from stage/result writes so checkpoints
+        remain durable if a downstream response is lost or the worker exits.
+        """
+        lock_id = int.from_bytes(hashlib.sha256(key.encode()).digest()[:8], "big", signed=True)
+        with self.lock_engine.begin() as connection:
+            acquired = connection.scalar(
+                text("SELECT pg_try_advisory_xact_lock(:lock_id)"), {"lock_id": lock_id}
+            )
+            yield acquired
 
     def claim_request(self, key: str, fingerprint: str, payload: dict) -> tuple[dict, bool, tuple[int, dict] | None]:
         assignment = Assignment(

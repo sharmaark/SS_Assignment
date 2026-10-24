@@ -1,0 +1,80 @@
+{
+  "timestamp_utc": "2026-10-24T03:45:35.728304+00:00",
+  "claim": "simultaneous and sequential repeats return one stored result",
+  "simultaneous": [
+    {
+      "status_code": 201,
+      "body": {
+        "id": "d63b31c4-515d-4043-b12f-f82dbd2d87c0",
+        "work_order_id": "e561a408-2a8e-4195-93bb-157e0b5ccb5d",
+        "inspector_id": "ed37b1e4-d873-423c-9bd4-8fd3f41df811",
+        "status": "CONFIRMED",
+        "stage": "CONFIRMED",
+        "reservation_id": "478de893-9c97-4061-a701-cfb95116b628",
+        "notification_status": "SENT",
+        "created_at": "2026-10-24 03:45:31.186558+00:00"
+      }
+    },
+    {
+      "status_code": 201,
+      "body": {
+        "id": "d63b31c4-515d-4043-b12f-f82dbd2d87c0",
+        "work_order_id": "e561a408-2a8e-4195-93bb-157e0b5ccb5d",
+        "inspector_id": "ed37b1e4-d873-423c-9bd4-8fd3f41df811",
+        "status": "CONFIRMED",
+        "stage": "CONFIRMED",
+        "reservation_id": "478de893-9c97-4061-a701-cfb95116b628",
+        "notification_status": "SENT",
+        "created_at": "2026-10-24 03:45:31.186558+00:00"
+      }
+    }
+  ],
+  "sequential_replay": {
+    "status_code": 201,
+    "body": {
+      "id": "d63b31c4-515d-4043-b12f-f82dbd2d87c0",
+      "work_order_id": "e561a408-2a8e-4195-93bb-157e0b5ccb5d",
+      "inspector_id": "ed37b1e4-d873-423c-9bd4-8fd3f41df811",
+      "status": "CONFIRMED",
+      "stage": "CONFIRMED",
+      "reservation_id": "478de893-9c97-4061-a701-cfb95116b628",
+      "notification_status": "SENT",
+      "created_at": "2026-10-24 03:45:31.186558+00:00"
+    }
+  },
+  "changed_payload": {
+    "status_code": 409,
+    "body": {
+      "error": {
+        "code": "IDEMPOTENCY_KEY_REUSED",
+        "message": "Idempotency-Key was already used with a different request payload",
+        "details": {}
+      },
+      "correlation_id": "7f704890-4b5f-4219-bb57-3b4813835d06"
+    }
+  },
+  "final_reservations": [
+    {
+      "id": "478de893-9c97-4061-a701-cfb95116b628",
+      "inspector_id": "ed37b1e4-d873-423c-9bd4-8fd3f41df811",
+      "assignment_id": "d63b31c4-515d-4043-b12f-f82dbd2d87c0",
+      "slot": "2026-10-31T03:45:30.491926+00:00",
+      "state": "RESERVED",
+      "created_at": "2026-10-24T03:45:32.342557+00:00"
+    }
+  ],
+  "final_notifications": [
+    {
+      "delivery_key": "assignment:d63b31c4-515d-4043-b12f-f82dbd2d87c0",
+      "assignment_id": "d63b31c4-515d-4043-b12f-f82dbd2d87c0",
+      "work_order_id": "e561a408-2a8e-4195-93bb-157e0b5ccb5d",
+      "message": "Inspection e561a408-2a8e-4195-93bb-157e0b5ccb5d assigned",
+      "status": "SENT",
+      "owner_token": null,
+      "attempts": 1,
+      "created_at": "2026-10-24T03:45:33.591000",
+      "sent_at": "2026-10-24T03:45:33.593000",
+      "id": "03851648-f527-41f4-bf67-553f8540c2bf"
+    }
+  ]
+}

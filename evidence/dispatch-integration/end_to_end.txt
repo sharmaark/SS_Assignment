@@ -1,0 +1,50 @@
+{
+  "claim": "all service states agree; idempotent replay and GridFS evidence round trip verified",
+  "assignment": {
+    "id": "a3c7844c-a4fe-401a-9d5d-cab78c8ba1b7",
+    "work_order_id": "abaa9123-1f8e-4c14-a565-231aaa15220e",
+    "inspector_id": "0bc217d6-9771-4dd6-8779-d6d8897159f0",
+    "status": "CONFIRMED",
+    "stage": "CONFIRMED",
+    "reservation_id": "4fbd62ea-88de-4c95-8c26-7957189d2ec7",
+    "notification_status": "SENT",
+    "created_at": "2026-10-24 03:44:56.604586+00:00"
+  },
+  "reservation": {
+    "id": "4fbd62ea-88de-4c95-8c26-7957189d2ec7",
+    "inspector_id": "0bc217d6-9771-4dd6-8779-d6d8897159f0",
+    "assignment_id": "a3c7844c-a4fe-401a-9d5d-cab78c8ba1b7",
+    "slot": "2026-10-31T03:44:56.009466+00:00",
+    "state": "RESERVED",
+    "created_at": "2026-10-24T03:44:57.622490+00:00"
+  },
+  "notification": {
+    "delivery_key": "assignment:a3c7844c-a4fe-401a-9d5d-cab78c8ba1b7",
+    "assignment_id": "a3c7844c-a4fe-401a-9d5d-cab78c8ba1b7",
+    "work_order_id": "abaa9123-1f8e-4c14-a565-231aaa15220e",
+    "message": "Inspection abaa9123-1f8e-4c14-a565-231aaa15220e assigned",
+    "status": "SENT",
+    "owner_token": null,
+    "attempts": 1,
+    "created_at": "2026-10-24T03:44:58.523000",
+    "sent_at": "2026-10-24T03:44:58.527000",
+    "id": "58474e4d-2a49-48af-adad-b6e386059f74"
+  },
+  "photo": {
+    "id": "6adc29bd816c4b664d9418c3",
+    "work_order_id": "abaa9123-1f8e-4c14-a565-231aaa15220e",
+    "filename": "inspection.png",
+    "content_type": "image/png",
+    "size": 68,
+    "uploaded_at": "2026-10-24T03:45:01.563988+00:00"
+  },
+  "checks": [
+    "confirmed work order",
+    "single reservation",
+    "single sent notification",
+    "stored response replay",
+    "changed payload rejected",
+    "correlation header",
+    "photo upload/list/download"
+  ]
+}
